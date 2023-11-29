@@ -1,0 +1,98 @@
+version: "3.8"
+
+networks:
+  book:
+    driver: bridge
+
+services:
+  
+  # Backing Services
+
+  book-redis:
+    image: "redis:7.0"
+    container_name: "book-redis"
+    ports:
+      - 6379:6379
+    networks:
+      - book
+
+  keycloak-postgres:
+    image: postgres:15.3
+    container_name: keycloak_postgres
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: "pg_isready -U postgres"
+    networks:
+      - book
+  
+  book-keycloak:
+    image: quay.io/keycloak/keycloak:22.0.1
+    container_name: book-keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=keycloak-postgres
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+      - KC_DB_PORT=5433
+      - KC_HEALTH_ENABLED=true
+    ports:
+      - "8080:8080"
+    command: start-dev
+    depends_on:
+      - keycloak-postgres
+    healthcheck:
+      test: "curl -f http://book-keycloak:8080/health/ready || exit 1"
+    networks:
+      - book
+
+  book-mysql:
+    container_name: book-mysql
+    image: mysql:8.1.0
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: authorbookdb
+      MYSQL_USER: authorbookuser
+      MYSQL_PASSWORD: authorbookpass
+      MYSQL_ROOT_PASSWORD: secret
+    healthcheck:
+      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+    networks:
+      - book
+
+  book-mongodb:
+    image: bitnami/mongodb:7.0.2
+    container_name: book-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_DATABASE: bookreviewdb
+      MONGODB_USERNAME: bookreviewuser
+      MONGODB_PASSWORD: bookreviewpass
+      MONGODB_ROOT_PASSWORD: secret
+    healthcheck:
+      test: echo 'db.stats().ok' | mongosh localhost:27017/bookreviewdb --quiet
+    volumes:
+      - ./docker-conf/mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    networks:
+      - book
+
+  zipkin:
+    image: openzipkin/zipkin:2.24.3
+    container_name: zipkin
+    restart: unless-stopped
+    ports:
+      - "9411:9411"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9411" ]
+    networks:
+      - book

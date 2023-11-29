@@ -1,8 +1,0 @@
-
-query Basket {
-  me {
-    basket {
-      id
-    }
-  }
-}

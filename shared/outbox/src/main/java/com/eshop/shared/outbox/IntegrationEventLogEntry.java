@@ -2,9 +2,12 @@ package com.eshop.shared.outbox;
 
 import com.eshop.shared.eventhandling.IntegrationEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

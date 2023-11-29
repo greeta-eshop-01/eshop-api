@@ -31,7 +31,7 @@ public class SecurityConfig {
         .cors()
         .and()
         .csrf().disable()
-        .mvcMatcher("/**")
+        .securityMatcher("/**")
         .authorizeRequests()
         .anyRequest().hasRole(EshopRole.Admin)
         .and()

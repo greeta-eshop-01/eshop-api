@@ -6,6 +6,7 @@ import com.eshop.gqlgateway.services.OrderApiService;
 import com.netflix.graphql.dgs.exceptions.DgsBadRequestException;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,7 +24,7 @@ public class OrderApiServiceImpl implements OrderApiService {
   public Optional<OrderDto> findById(UUID id) {
     var response = orderRestTemplate.getForEntity("lb://order-processing/orders/" + id, OrderDto.class);
 
-    return switch (response.getStatusCode()) {
+    return switch (HttpStatus.valueOf(response.getStatusCodeValue())) {
       case NOT_FOUND -> throw new DgsEntityNotFoundException();
       case UNAUTHORIZED -> throw new DgsBadRequestException();
       default -> Optional.ofNullable(response.getBody());

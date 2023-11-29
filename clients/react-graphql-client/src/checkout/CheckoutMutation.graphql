@@ -1,6 +1,0 @@
-
-mutation Checkout($input: BasketCheckoutInput!) {
-  checkout(input: $input) {
-    orderNumber
-  }
-}

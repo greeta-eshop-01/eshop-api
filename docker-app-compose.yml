@@ -1,0 +1,65 @@
+version: "3.8"
+
+networks:
+  book:
+    driver: bridge
+
+services:
+  # Applications
+
+  author-book:
+    image: "author-book-service"
+    container_name: "author-book"
+    ports:
+      - 9001:9001
+      - 8001:8001
+    environment:
+      - SERVER_PORT=9001
+      - BPL_JVM_THREAD_COUNT=50
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8001
+      - SPRING_KEYCLOAK_SERVER_URL=http://book-keycloak:8080
+      - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
+      - MYSQL_HOST=book-mysql
+      - BOOK_REVIEW_API_HOST=book-review
+      - BOOK_REVIEW_API_PORT=9002
+      - ZIPKIN_HOST=zipkin
+    networks:
+      - book
+
+  book-review:
+    image: "book-review-service"
+    container_name: "book-review"
+    ports:
+      - 9002:9002
+      - 8002:8002
+    environment:
+      - SERVER_PORT=9002
+      - BPL_JVM_THREAD_COUNT=50
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8002
+      - SPRING_KEYCLOAK_SERVER_URL=http://book-keycloak:8080
+      - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
+      - MONGODB_HOST=book-mongodb
+      - ZIPKIN_HOST=zipkin
+    networks:
+      - book
+
+  gateway:
+    image: "gateway-service"
+    container_name: "gateway"
+    ports:
+      - 9000:9000
+      - 8000:8000
+    environment:
+      - SERVER_PORT=9000
+      # Buildpacks environment variable to enable debug through a socket on port 8000
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8000
+      - AUTHOR_BOOK_SERVICE_URL=http://author-book:9001
+      - BOOK_REVIEW_SERVICE_URL=http://book-review:9002
+      - SPRING_REDIS_HOST=book-redis
+      - SPRING_KEYCLOAK_SERVER_URL=http://book-keycloak:8080
+      - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
+    networks:
+      - book
