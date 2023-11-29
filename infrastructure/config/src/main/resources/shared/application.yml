@@ -1,0 +1,153 @@
+# Server config
+server:
+  ## Should be included to show message, if not error message will be empty
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Custom config
+app:
+  client:
+    client-address:
+      ng: http://localhost:4200
+      react: http://localhost:4201
+  security:
+    jwt:
+      user-name-attribute: preferred_username
+    audience:
+      analytics: analytics-service
+      order: order-service
+      basket: basket-service
+      catalog: catalog-service
+      image: image-service
+      rating: rating-service
+  eureka:
+    host: localhost
+    port: 8761
+    user: user
+    pass: password
+  kafka:
+    broker:
+      host: localhost
+      port: 9092
+  auth-server:
+    protocol: http
+    host: localhost
+    port: 8080
+    realm: e-shop
+    jwk-set-uri: ${app.auth-server.protocol}://${app.auth-server.host}:${app.auth-server.port}/auth/realms/${app.auth-server.realm}/protocol/openid-connect/certs
+    issuer-uri: ${app.auth-server.protocol}://${app.auth-server.host}:${app.auth-server.port}/auth/realms/${app.auth-server.realm}
+  logstash:
+    host: localhost
+    port: 5044
+
+# Spring
+spring:
+  # Kafka
+  kafka:
+    bootstrap-servers: ${app.kafka.broker.host}:${app.kafka.broker.port}
+    producer:
+      properties:
+        spring.json.add.type.headers: false
+    consumer:
+      auto-offset-reset: earliest
+      properties:
+        isolation.level: read_committed
+      topic:
+        orders: orders
+        orderCheckouts: order-checkouts
+        productPriceChanges: product-price-changes
+        paidOrders: paid-orders
+        ordersWaitingForValidation: orders-waiting-for-validation
+        orderStockConfirmed: order-stock-confirmed
+        orderStockRejected: order-stock-rejected
+        submittedOrders: submitted-orders
+        shippedOrders: shipped-orders
+        cancelledOrders: cancelled-orders
+        gracePeriodConfirmed: grace-period-confirmed
+        paymentStatus: payment-status
+        stockConfirmed: stock-confirmed
+
+  cloud:
+    # As Spring Cloud Ribbon is in maintenance mode.
+    # It is recommended switching to BlockingLoadBalancerClient instead.
+    loadbalancer.ribbon.enabled: false
+
+    # Disable distributed tracing by default
+  zipkin:
+    enabled: false
+  sleuth:
+    enabled: false
+
+# Service discovery
+eureka:
+  instance:
+    prefer-ip-address: false
+    instance-id: ${spring.application.name}:${random.int}
+#    instance-id: ${spring.application.name}
+    hostname: ${app.eureka.host}
+  client:
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${app.eureka.user}:${app.eureka.pass}@${app.eureka.host}:${app.eureka.port}/eureka/
+    healthcheck:
+      enabled: true
+
+# Management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: false
+    health:
+      show-details: ALWAYS
+
+---
+# Distributed tracing
+spring:
+  config:
+    activate:
+      on-profile: distributed-tracing
+
+  sleuth:
+    enabled: true
+    traceId128: true
+    sampler.probability: 1.0
+
+  zipkin:
+    enabled: true
+    sender.type: kafka
+
+sample:
+  zipkin:
+    # When enabled=false, traces log to the console. Comment to send to zipkin
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  eureka:
+    host: discovery
+    user: ${EUREKA_USER}
+    pass: '{cipher}AQAERvsiEvV0z4nUfpzdjEc4jinmC8UPohZrXbWk0dKFpuxJshF75u1FW7i4bN5XdK5h1AmEXzMNz4s+KcGtJI0OEG6qMA6asazFSkmK1MkZ3voVExPnDG6NB7urRhA8/QCPJSsWm1iaQv74+NAi1wMTCJbt3rstrLgSE9ZbJOkInID4xkHYBHsUKkmW9+iQz47DW1YCgAHwmTIjxXjOJ4dYJdeJNPby4OF1xgAOX6YCjpoJrENq0DFNBWiY5pKPK6M80f6e19JxbFjJUe3mft+3Zy88NNN/dq5pzCW59vOlLMoHSuo/SzLqxeIlOCwunQHcC2424DZd4jWdCiJ7Gyu5sF2UKWtU5J6+fhQMeTSjiyHRgZxfgsQppOg/rQ4oXqo='
+  kafka:
+    broker:
+      host: kafka
+      port: 29092
+  auth-server:
+    protocol: https
+    host: authorization-service
+    port: 8443
+  logstash:
+    host: logstash
+
+eureka:
+  instance:
+    prefer-ip-address: true

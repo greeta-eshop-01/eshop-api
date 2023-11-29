@@ -1,0 +1,33 @@
+<h4>Manage Catalog Items</h4>
+
+<a class="btn btn-link" routerLink="catalog-item">Add Catalog Item</a>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product Name</th>
+    <th scope="col">Price</th>
+    <th scope="col">Description</th>
+    <th scope="col">Brand</th>
+    <th scope="col">Category</th>
+    <th scope="col">Available Stock</th>
+  </tr>
+  </thead>
+  <tbody>
+    <es-catalog-item-row
+      *ngFor="let item of catalogPage?.content;"
+      [item]="item"
+      (deleted)="deleteCatalogItem(item)"
+      (nameChanged)="nameChanged($event)"
+      (priceChanged)="priceChanged($event)">
+    </es-catalog-item-row>
+  </tbody>
+</table>
+
+<es-pagination
+  class="d-flex justify-content-center p-2"
+  *ngIf="catalogPage"
+  [page]="catalogPage"
+  (pageChanged)="onPageChanged($event)"
+></es-pagination>

@@ -1,0 +1,71 @@
+server:
+  port: 8888
+
+app:
+  config:
+    user: cfguser
+    password: cfgpassword
+  logstash:
+    host: localhost
+    port: 5044
+  kafka:
+    broker:
+      host: localhost
+      port: 9092
+
+spring:
+  application:
+    name: config
+  cloud:
+    profiles:
+      active: native
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+      trace:
+        enabled: true
+
+  kafka:
+    bootstrap-servers: ${app.kafka.broker.host}:${app.kafka.broker.port}
+
+  security:
+    user:
+      name: ${app.config.user}
+      password: ${app.config.password}
+
+  zipkin:
+    enabled: false
+  sleuth:
+    enabled: false
+
+# Logging
+logging:
+  level:
+    root: info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+  cloud:
+    config:
+      encrypt:
+        enabled: true
+
+app:
+  config:
+    user: ${CONFIG_SERVICE_USER}
+    password: ${CONFIG_SERVICE_PASSWORD}
+  logstash:
+    host: logstash
+  kafka:
+    broker:
+      host: kafka
+      port: 29092

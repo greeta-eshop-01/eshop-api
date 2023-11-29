@@ -1,0 +1,5 @@
+<ngb-pagination
+  [collectionSize]="page.total"
+  [page]="page.pageable.page + 1"
+  (pageChange)="onPageChange($event)">
+</ngb-pagination>

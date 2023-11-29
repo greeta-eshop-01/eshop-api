@@ -1,0 +1,138 @@
+app:
+  security:
+    oauth2.client:
+      analytics:
+        id: analytics-service
+        secret: b20b38ac-7a98-429a-9949-b358b23f7b66
+  services:
+    catalog-query: catalog-query
+    catalog-command: catalog-command
+    basket: basket
+    order-processing: order-processing
+    analytics: analytics
+    rating: rating
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          analytics-service:
+            provider: keycloak
+            client-id: ${app.security.oauth2.client.analytics.id}
+            client-secret: ${app.security.oauth2.client.analytics.secret}
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: ${app.auth-server.issuer-uri}
+
+      resourceserver:
+        jwt:
+          issuer-uri: ${app.auth-server.issuer-uri}
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+    loadbalancer:
+      ribbon:
+        enabled: false
+      retry:
+        enabled: false
+
+resilience4j:
+  circuitbreaker:
+#    circuitBreakerAspectOrder: 1
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+          - java.net.ConnectException
+          - org.springframework.web.reactive.function.client.WebClientRequestException
+          - org.springframework.web.reactive.function.client.WebClientResponseException$ServiceUnavailable
+    instances:
+      basket:
+        baseConfig: default
+      catalog-query:
+        baseConfig: default
+      rating:
+        baseConfig: default
+      order:
+        baseConfig: default
+        recordExceptions:
+          - com.eshop.gateway.infrastructure.exception.ServiceCallFailedException
+
+  retry:
+#    retryAspectOrder: 2
+    configs:
+      default:
+        maxRetryAttempts: 3
+        waitDuration: 100
+        retryExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+          - java.net.ConnectException
+          - org.springframework.web.reactive.function.client.WebClientRequestException
+          - org.springframework.web.reactive.function.client.WebClientResponseException$ServiceUnavailable
+#        ignoreExceptions:
+#          - ...
+    instances:
+      basket:
+        baseConfig: default
+      rating:
+        baseConfig: default
+      catalog-query:
+        baseConfig: default
+        maxRetryAttempts: 4
+        waitDuration: 1000
+
+  ratelimiter:
+    configs:
+      default:
+        registerHealthIndicator: false
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+        eventConsumerBufferSize: 100
+    instances:
+      basket:
+        baseConfig: default
+
+  timelimiter:
+    configs:
+      default:
+        cancelRunningFuture: false
+        timeoutDuration: 2s
+    instances:
+      rating:
+        baseConfig: default
+        cancelRunningFuture: true
+      catalog-query:
+        baseConfig: default
+        cancelRunningFuture: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  security:
+    oauth2.client:
+      analytics:
+        secret: '{cipher}AQAOzqz1COcjTOyVyTiFdUWfw7w57AUA6gn6wtXUteHIEQULp82IwQLn4bSsY2oCShv1UoXJQRzW406yfBGKn8zDFmAcIxfxlMy6bOTSYTCkCAytdSPDUW+k7fEt/3tzwGmtUCcFiBFc2GcMoqNTdFn+zTUQImP8c0iyJw3EJGRgSLXU0dBYeh0AlYZXCqFczYuqd4gK06XsJ95FI710pGwl/mVyqRxDrQFwyudrUrnHllJ9asEChkpnk3xHfl9moTTB9W/kroYTOhcUG4jYNu67iqp+paps+t86xdaLM3JKiDtE1ItVL2v3ny3ex9vtATZ4vtCFL8uqeGZn9LcD5rMWcfFZBdhn3yHcyDthnh2LYeOIiwEmtOQq9xxq22y9tFN7ILSdE3qQnKEdZbVftZ9P5Jz0l2VV/b8E8fNGfjoC5g=='

@@ -1,0 +1,20 @@
+
+# Eureka server
+eureka:
+  datacenter: Test Data Center
+  environment: development
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+eureka:
+  datacenter: Docker Data Center
+  environment: docker
+  instance:
+    preferIpAddress: true

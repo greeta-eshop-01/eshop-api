@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="filterForm" (submit)="onFilterSubmitted()" class="row row-cols-lg-auto g-3 align-items-center">
+      <div class="col-lg-2">
+        <div class="form-floating">
+          <select id="catalog-type" class="form-select" formControlName="type">
+            <option>All</option>
+            <option *ngFor="let type of types" [ngValue]=type>
+              {{type.name}}
+            </option>
+          </select>
+          <label for="catalog-type">Type</label>
+        </div>
+      </div>
+
+      <div class="col-lg-2">
+        <div class="form-floating">
+          <select id="catalog-brand" class="form-select" formControlName="brand">
+            <option>All</option>
+            <option *ngFor="let brand of brands" [ngValue]=brand>
+              {{brand.name}}
+            </option>
+          </select>
+          <label for="catalog-brand">Brand</label>
+        </div>
+      </div>
+
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </form>
+  </div>
+</div>

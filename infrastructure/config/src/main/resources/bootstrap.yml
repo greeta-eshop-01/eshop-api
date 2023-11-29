@@ -1,0 +1,20 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+encrypt:
+  key: dev-password
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+encrypt:
+  keyStore:
+    location: classpath:/keystore/keystore.jks
+    password: ${CONFIG_KEYSTORE_PASSWORD}
+    alias: configkey
+    secret: ${CONFIG_KEY_PASSWORD}

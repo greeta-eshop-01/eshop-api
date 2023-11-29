@@ -1,0 +1,18 @@
+app:
+  kafka:
+    group:
+      ordersWaitingValidation: on-orders-waiting-validation-group
+      cancelledOrders: on-cancelled-orders-group
+      paidOrders: on-paid-orders-group
+      shippedOrders: on-shipped-orders-group
+      stockConfirmed: on-stock-confirmed-group
+      submittedOrders: on-submitted-orders-group
+
+spring:
+  # Security
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.auth-server.jwk-set-uri}
+          issuer-uri: ${app.auth-server.issuer-uri}

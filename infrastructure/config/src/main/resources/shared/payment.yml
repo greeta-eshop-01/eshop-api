@@ -1,0 +1,19 @@
+app:
+  kafka:
+    group:
+      stockConfirmed: stock-confirmed-group
+
+spring:
+  # Security
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.auth-server.jwk-set-uri}
+          issuer-uri: ${app.auth-server.issuer-uri}
+
+  kafka:
+    producer:
+      transaction-id-prefix: tx-payment-
+    consumer:
+      enable-auto-commit: false
