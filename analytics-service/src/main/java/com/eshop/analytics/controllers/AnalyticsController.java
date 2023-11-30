@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/analytics")
+@RequestMapping("/api")
 public class AnalyticsController {
   private static final Logger logger = LoggerFactory.getLogger(AnalyticsController.class);
 

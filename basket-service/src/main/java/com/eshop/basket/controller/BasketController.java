@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController()
-@RequestMapping("basket")
+@RequestMapping("api")
 @RequiredArgsConstructor
 public class BasketController {
   private static final Logger logger = LoggerFactory.getLogger(BasketController.class);

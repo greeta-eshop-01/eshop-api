@@ -22,7 +22,7 @@ public class OrderApiServiceImpl implements OrderApiService {
 
   @Override
   public Optional<OrderDto> findById(UUID id) {
-    var response = orderRestTemplate.getForEntity("lb://order-processing/orders/" + id, OrderDto.class);
+    var response = orderRestTemplate.getForEntity("http://order-processing/orders/" + id, OrderDto.class);
 
     return switch (HttpStatus.valueOf(response.getStatusCodeValue())) {
       case NOT_FOUND -> throw new DgsEntityNotFoundException();
@@ -33,13 +33,13 @@ public class OrderApiServiceImpl implements OrderApiService {
 
   @Override
   public List<OrderDto> userOrders() {
-    var response = orderRestTemplate.getForEntity("lb://order-processing/orders/user", OrderDto[].class);
+    var response = orderRestTemplate.getForEntity("http://order-processing/orders/user", OrderDto[].class);
     return Arrays.asList(response.getBody());
   }
 
   @Override
   public List<OrderDto> allOrders() {
-    var response = orderRestTemplate.getForEntity("lb://order-processing/orders", OrderDto[].class);
+    var response = orderRestTemplate.getForEntity("http://order-processing/orders", OrderDto[].class);
     return Arrays.asList(response.getBody());
   }
 

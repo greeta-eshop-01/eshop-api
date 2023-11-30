@@ -1,5 +1,6 @@
 package com.eshop.signaler.config;
 
+import com.eshop.signaler.security.WebSocketConnectInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

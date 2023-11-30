@@ -27,10 +27,6 @@
         </dependency>
         <dependency>
             <groupId>net.greeta.eshop</groupId>
-            <artifactId>security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.greeta.eshop</groupId>
             <artifactId>validation</artifactId>
         </dependency>
         <dependency>

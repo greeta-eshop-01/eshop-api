@@ -15,7 +15,6 @@ public class FileUploadController {
 
   private final MinioService minioService;
 
-  @CrossOrigin({"${app.client.client-address.ng}", "${app.client.client-address.react}"})
   @PostMapping("/images/upload")
   public ResponseEntity<ImageUploadResponse> uploadFile(
       @RequestBody byte[] file,

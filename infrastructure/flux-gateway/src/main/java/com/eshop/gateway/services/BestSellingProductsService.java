@@ -10,8 +10,8 @@ import reactor.core.publisher.Flux;
 public class BestSellingProductsService {
   private final AnalyticsApiService analyticsApiService;
 
-  public Flux<CatalogItem> topFive() {
-    return analyticsApiService.getTopFiveProducts();
+  public Flux<CatalogItem> topFive(String accessToken) {
+    return analyticsApiService.getTopFiveProducts(accessToken);
   }
 
 }

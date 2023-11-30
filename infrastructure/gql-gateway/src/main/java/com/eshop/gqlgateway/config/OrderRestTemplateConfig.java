@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class OrderRestTemplateConfig {
 
-  @LoadBalanced
   @Bean
   public RestTemplate orderRestTemplate() {
     return new RestTemplateBuilder()

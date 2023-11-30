@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class BasketRestTemplateConfig {
 
-  @LoadBalanced
   @Bean
   public RestTemplate basketRestTemplate() {
     return new RestTemplateBuilder()

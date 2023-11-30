@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Handle requests for catalog service.
  */
-@RequestMapping("catalog")
+@RequestMapping("api")
 @RestController
 @RequiredArgsConstructor
 public class CatalogController {
