@@ -54,4 +54,6 @@ target/
 .springBeans
 src/main/resources/static/
 
+minio/**
+
 ### Test ##
