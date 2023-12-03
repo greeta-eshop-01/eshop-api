@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hdimitrieski/e-shop/blob/main/LICENSE)
 
-# Warning! Work In Progress!
+# Sample Spring Cloud Microservices eShop eCommerce Platform
 
 
 See original eShop Code for Full-Stack Template with Gradle + React and Angular UI: [Original eShop](https://github.com/hdimitrieski/e-shop)
