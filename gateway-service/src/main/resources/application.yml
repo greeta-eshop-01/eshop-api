@@ -57,27 +57,115 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: author-book
-          uri: ${AUTHOR_BOOK_SERVICE_URL:http://localhost:9001}
+        - id: analytics
+          uri: ${ANALYTICS_SERVICE_URL:http://localhost:9001}
           predicates:
-            - Path=/author-book/**
+            - Path=/analytics/**
           filters:
-            - RewritePath=/author-book/(?<path>.*), /$\{path}
+            - RewritePath=/analytics/(?<path>.*), /$\{path}
             - name: CircuitBreaker
               args:
-                name: authorBookCircuitBreaker
-                fallbackUri: forward:/book-fallback
+                name: analyticsCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
 
-        - id: book-review
-          uri: ${BOOK_REVIEW_SERVICE_URL:http://localhost:9001}
+        - id: basket
+          uri: ${BASKET_SERVICE_URL:http://localhost:9002}
           predicates:
-            - Path=/book-review/**
+            - Path=/basket/**
           filters:
-            - RewritePath=/book-review/(?<path>.*), /$\{path}
+            - RewritePath=/basket/(?<path>.*), /$\{path}
             - name: CircuitBreaker
               args:
-                name: bookReviewCircuitBreaker
-                fallbackUri: forward:/book-fallback
+                name: basketCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: catalog-command
+          uri: ${CATALOG_COMMAND_SERVICE_URL:http://localhost:9003}
+          predicates:
+            - Path=/catalog-command/**
+          filters:
+            - RewritePath=/catalog-command/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: catalogCommandCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: catalog-query
+          uri: ${CATALOG_QUERY_SERVICE_URL:http://localhost:9004}
+          predicates:
+            - Path=/catalog-query/**
+          filters:
+            - RewritePath=/catalog-query/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: catalogQueryCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: flux-gateway
+          uri: ${FLUX_GATEWAY_SERVICE_URL:http://localhost:9005}
+          predicates:
+            - Path=/flux-gateway/**
+          filters:
+            - RewritePath=/flux-gateway/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: fluxGatewayCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: graphql-gateway
+          uri: ${GRAPHQL_GATEWAY_SERVICE_URL:http://localhost:9006}
+          predicates:
+            - Path=/graphql-gateway/**
+          filters:
+            - RewritePath=/graphql-gateway/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: graphqlGatewayCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: image-gateway
+          uri: ${IMAGE_GATEWAY_SERVICE_URL:http://localhost:9007}
+          predicates:
+            - Path=/image-gateway/**
+          filters:
+            - RewritePath=/image-gateway/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: imageGatewayCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: order-notifications
+          uri: ${ORDER_NOTIFICATIONS_SERVICE_URL:http://localhost:9009}
+          predicates:
+            - Path=/order-notifications/**
+          filters:
+            - RewritePath=/order-notifications/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: orderNotificationsCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: order-processing
+          uri: ${ORDER_PROCESSING_SERVICE_URL:http://localhost:9010}
+          predicates:
+            - Path=/order-processing/**
+          filters:
+            - RewritePath=/order-processing/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: orderProcessingCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
+
+        - id: rating
+          uri: ${RATING_SERVICE_URL:http://localhost:9012}
+          predicates:
+            - Path=/rating/**
+          filters:
+            - RewritePath=/rating/(?<path>.*), /$\{path}
+            - name: CircuitBreaker
+              args:
+                name: ratingCircuitBreaker
+                fallbackUri: forward:/eshop-fallback
 
   redis:
     connect-timeout: 20s
@@ -97,22 +185,22 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${spring.keycloak.server-external-url}/realms/book-realm
-          jwk-set-uri: ${spring.keycloak.server-url}/realms/book-realm/protocol/openid-connect/certs
+          issuer-uri: ${spring.keycloak.server-external-url}/realms/eshop-realm
+          jwk-set-uri: ${spring.keycloak.server-url}/realms/eshop-realm/protocol/openid-connect/certs
 
 jwt:
   auth:
     converter:
-      resource-id: book-app
+      resource-id: eshop-app
       principal-attribute: preferred_username
 
-author-book-app:
+eshop-angular-app:
   base-url: http://localhost:3000
-  redirect-url: ${author-book-app.base-url}/*
+  redirect-url: ${eshop-angular-app.base-url}/*
 
-book-review-app:
+eshop-react-app:
   base-url: http://localhost:3001
-  redirect-url: ${book-review-app.base-url}/*
+  redirect-url: ${eshop-react-app.base-url}/*
 
 resilience4j:
   circuitbreaker:
@@ -130,7 +218,7 @@ resilience4j:
 logging:
   group:
     circuitbreaker: io.github.resilience4j, org.springframework.cloud.circuitbreaker
-  pattern: 
+  pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
   level:
@@ -175,7 +263,23 @@ springdoc:
       # - url: /v3/api-docs
       #   name: API Gateway Service
       #   primaryName: API Gateway Service
-      - url: /author-book/v3/api-docs
-        name: Author Book Service
-      - url: /book-review/v3/api-docs
-        name: Book Review Service
+      - url: /analytics/v3/api-docs
+        name: Analytics Service
+      - url: /basket/v3/api-docs
+        name: Basket Service
+      - url: /catalog-command/v3/api-docs
+        name: Catalog Command Service
+      - url: /catalog-query/v3/api-docs
+        name: Catalog Query Service
+      - url: /flux-gateway/v3/api-docs
+        name: Flux Gateway Service
+      - url: /graphql-gateway/v3/api-docs
+        name: GraphQL Gateway Service
+      - url: /image-gateway/v3/api-docs
+        name: Image Gateway Service
+      - url: /order-notifications/v3/api-docs
+        name: Order Notifications Service
+      - url: /order-processing/v3/api-docs
+        name: Order Processing Service
+      - url: /rating/v3/api-docs
+        name: Rating Service

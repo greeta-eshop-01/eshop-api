@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class AxonKafkaConfig {
 
   /**
-   * Creates a Kafka producer factory, using the Kafka properties configured in application.yml.
+   * Creates a Kafka producer factory, using the Kafka properties configured in backup.yml.
    */
   @Bean
   public ProducerFactory<String, byte[]> producerFactory(KafkaProperties kafkaProperties) {

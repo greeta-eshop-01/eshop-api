@@ -12,9 +12,9 @@
     <artifactId>infrastructure</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>flux-gateway</module>
-        <module>gql-gateway</module>
-        <module>image-service</module>
+        <module>flux-gateway-service</module>
+        <module>graphql-gateway-service</module>
+        <module>image-gateway-service</module>
     </modules>
 
 </project>

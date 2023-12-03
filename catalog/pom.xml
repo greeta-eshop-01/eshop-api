@@ -12,9 +12,9 @@
     <artifactId>catalog</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>catalog-shared</module>
         <module>catalog-command-service</module>
         <module>catalog-query-service</module>
-        <module>catalog-shared</module>
     </modules>
 
 </project>

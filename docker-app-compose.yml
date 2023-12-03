@@ -1,49 +1,50 @@
 version: "3.8"
 
 networks:
-  book:
+  eshop:
     driver: bridge
 
 services:
   # Applications
-
-  author-book:
-    image: "author-book-service"
-    container_name: "author-book"
+  catalog-command:
+    image: "catalog-command-service"
+    container_name: "catalog-command"
     ports:
-      - 9001:9001
-      - 8001:8001
+      - 9003:9003
+      - 8003:8003
     environment:
-      - SERVER_PORT=9001
+      - SERVER_PORT=9003
       - BPL_JVM_THREAD_COUNT=50
       - BPL_DEBUG_ENABLED=true
-      - BPL_DEBUG_PORT=8001
-      - SPRING_KEYCLOAK_SERVER_URL=http://book-keycloak:8080
+      - BPL_DEBUG_PORT=8003
+      - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080
       - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
-      - MYSQL_HOST=book-mysql
-      - BOOK_REVIEW_API_HOST=book-review
-      - BOOK_REVIEW_API_PORT=9002
+      - MONGO_USER=user
+      - MONGO_PASSWORD=pass
       - ZIPKIN_HOST=zipkin
     networks:
-      - book
+      - eshop
 
-  book-review:
-    image: "book-review-service"
-    container_name: "book-review"
+  catalog-query:
+    image: "catalog-query-service"
+    container_name: "catalog-query"
     ports:
-      - 9002:9002
-      - 8002:8002
+      - 9004:9004
+      - 8004:8004
     environment:
-      - SERVER_PORT=9002
+      - SERVER_PORT=9004
       - BPL_JVM_THREAD_COUNT=50
       - BPL_DEBUG_ENABLED=true
-      - BPL_DEBUG_PORT=8002
-      - SPRING_KEYCLOAK_SERVER_URL=http://book-keycloak:8080
+      - BPL_DEBUG_PORT=8004
+      - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080
       - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
-      - MONGODB_HOST=book-mongodb
+      - MONGO_USER=user
+      - MONGO_PASSWORD=pass
+      - POSTGRES_USER=dbuser
       - ZIPKIN_HOST=zipkin
     networks:
-      - book
+      - eshop
+
 
   gateway:
     image: "gateway-service"
@@ -56,10 +57,19 @@ services:
       # Buildpacks environment variable to enable debug through a socket on port 8000
       - BPL_DEBUG_ENABLED=true
       - BPL_DEBUG_PORT=8000
-      - AUTHOR_BOOK_SERVICE_URL=http://author-book:9001
-      - BOOK_REVIEW_SERVICE_URL=http://book-review:9002
-      - SPRING_REDIS_HOST=book-redis
-      - SPRING_KEYCLOAK_SERVER_URL=http://book-keycloak:8080
+      - ANALYTICS_SERVICE_URL=http://analytics
+      - BASKET_SERVICE_URL=http://basket
+      - CATALOG_COMMAND_SERVICE_URL=http://catalog-command
+      - CATALOG_QUERY_SERVICE_URL=http://catalog-query
+      - FLUX_GATEWAY_SERVICE_URL=http://flux-gateway
+      - GRAPHQL_GATEWAY_SERVICE_URL=http://graphql-gateway
+      - IMAGE_GATEWAY_SERVICE_URL=http://image-gateway
+      - ORDER_NOTIFICATIONS_SERVICE_URL=http://order-notifications
+      - ORDER_PROCESSING_SERVICE_URL=http://order-processing
+      - RATING_SERVICE_URL=http://rating
+      - SPRING_REDIS_HOST=gateway-redis
+      - SPRING_REDIS_PORT=6380
+      - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080
       - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
     networks:
-      - book
+      - eshop

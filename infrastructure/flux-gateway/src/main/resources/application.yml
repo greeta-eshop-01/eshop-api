@@ -1,9 +1,0 @@
-
-logging:
-  level:
-    root: INFO
-    web: INFO
-    org.springframework:
-      cloud.gateway: TRACE
-      cloud.gateway.route.RouteDefinitionRouteLocator: INFO
-      web.server.adapter.HttpWebHandlerAdapter: TRACE

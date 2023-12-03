@@ -36,9 +36,9 @@
         <commons-lang3-version>3.12.0</commons-lang3-version>
         <commons-collections4-version>4.4</commons-collections4-version>
         <pipelinr-version>0.5</pipelinr-version>
-        <axon-version>4.6.1</axon-version>
-        <axon-kafka-version>4.6.0</axon-kafka-version>
-        <axon-mongo-version>4.6.0</axon-mongo-version>
+        <axon-version>4.9.0</axon-version>
+        <axon-kafka-version>4.9.0</axon-kafka-version>
+        <axon-mongo-version>4.9.0</axon-mongo-version>
         <kafka-clients-version>3.3.1</kafka-clients-version>
         <minio-version>8.4.5</minio-version>
         <okhttp-version>4.10.0</okhttp-version>

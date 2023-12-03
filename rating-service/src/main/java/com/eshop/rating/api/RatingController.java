@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequestMapping("api")
+@RequestMapping("/api")
 @RestController
 @RequiredArgsConstructor
 public class RatingController {

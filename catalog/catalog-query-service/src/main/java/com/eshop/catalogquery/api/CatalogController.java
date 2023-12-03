@@ -33,7 +33,7 @@ import static org.apache.logging.log4j.util.Strings.isEmpty;
 /**
  * Handle requests for catalog service.
  */
-@RequestMapping("api")
+@RequestMapping("/api")
 @RestController
 @RequiredArgsConstructor
 public class CatalogController {

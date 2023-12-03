@@ -1,11 +1,11 @@
 db.createUser(
     {
-        user: "bookreviewuser",
-        pwd: "bookreviewpass",
+        user: "user",
+        pwd: "pass",
         roles: [
             {
                 role: "readWrite",
-                db: "bookreviewdb"
+                db: "catalog-command-db"
             }
         ]
     }
