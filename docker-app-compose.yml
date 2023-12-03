@@ -83,6 +83,59 @@ services:
       - eshop
 
 
+  flux-gateway:
+    image: "flux-gateway-service"
+    container_name: "flux-gateway"
+    ports:
+      - 9005:9005
+      - 8005:8005
+    environment:
+      - SERVER_PORT=9005
+      - BPL_JVM_THREAD_COUNT=50
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8005
+      - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080
+      - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
+      - ZIPKIN_HOST=zipkin
+    networks:
+      - eshop
+
+  graphql-gateway:
+    image: "graphql-gateway-service"
+    container_name: "graphql-gateway"
+    ports:
+      - 9006:9006
+      - 8006:8006
+    environment:
+      - SERVER_PORT=9006
+      - BPL_JVM_THREAD_COUNT=50
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8006
+      - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080
+      - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
+      - ZIPKIN_HOST=zipkin
+    networks:
+      - eshop
+
+
+  image-gateway:
+    image: "image-gateway-service"
+    container_name: "image-gateway"
+    ports:
+      - 9007:9007
+      - 8007:8007
+    environment:
+      - SERVER_PORT=9007
+      - BPL_JVM_THREAD_COUNT=50
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8007
+      - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080
+      - SPRING_KEYCLOAK_SERVER_EXTERNAL_URL=http://localhost:8080
+      - ZIPKIN_HOST=zipkin
+    networks:
+      - eshop
+
+
   gateway:
     image: "gateway-service"
     container_name: "gateway"

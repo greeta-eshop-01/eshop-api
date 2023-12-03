@@ -16,10 +16,6 @@
               <groupId>net.greeta.eshop</groupId>
               <artifactId>rest</artifactId>
           </dependency>
-          <dependency>
-              <groupId>net.greeta.eshop</groupId>
-              <artifactId>security</artifactId>
-          </dependency>
 
         <dependency>
           <groupId>org.springframework.cloud</groupId>
@@ -73,10 +69,6 @@
         </dependency>
 
         <!-- Spring Cloud Starters -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-kafka</artifactId>
-        </dependency>
 
         <!-- Other Dependencies -->
         <dependency>

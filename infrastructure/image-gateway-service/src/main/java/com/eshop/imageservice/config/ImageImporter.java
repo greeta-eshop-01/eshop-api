@@ -19,7 +19,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
-@Profile("dev")
 public class ImageImporter implements ApplicationRunner {
   private static final Logger logger = LoggerFactory.getLogger(ImageImporter.class);
 

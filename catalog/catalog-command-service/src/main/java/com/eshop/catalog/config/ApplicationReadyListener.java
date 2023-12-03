@@ -10,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(CatalogProfiles.DEV)
 public class ApplicationReadyListener implements ApplicationListener<ApplicationReadyEvent> {
   private static final Logger logger = LoggerFactory.getLogger(ApplicationReadyListener.class);
 

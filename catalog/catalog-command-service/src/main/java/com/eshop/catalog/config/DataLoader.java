@@ -22,7 +22,6 @@ import java.util.UUID;
  */
 @RequiredArgsConstructor
 @Component
-@Profile(CatalogProfiles.DEV)
 public class DataLoader implements ApplicationRunner {
   private static final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 

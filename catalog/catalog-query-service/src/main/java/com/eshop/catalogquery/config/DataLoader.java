@@ -18,7 +18,6 @@ import java.util.UUID;
  */
 @RequiredArgsConstructor
 @Component
-@Profile("dev")
 public class DataLoader implements ApplicationRunner {
   private static final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 

@@ -91,12 +91,6 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Spring Cloud Starters -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-kafka</artifactId>
-        </dependency>
-
         <!-- Axon Framework and Extensions -->
         <dependency>
             <groupId>org.axonframework</groupId>

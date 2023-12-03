@@ -80,7 +80,7 @@ app:
   minio:
     bucketname: catalog-images
     region: eu-east
-    url: http://localhost:8086
+    url: http://minio:8086
     credentials:
       name: mystorage
       secret: mystorage

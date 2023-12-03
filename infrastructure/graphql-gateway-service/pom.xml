@@ -66,12 +66,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Cloud Starters -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-kafka</artifactId>
-        </dependency>
-
         <!-- Other Dependencies -->
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
