@@ -25,7 +25,7 @@ public class BasketApiServiceImpl implements BasketApiService {
   public Mono<BasketData> getById(String id) {
     return basketWebClient.build()
       .get()
-      .uri("http://basket/api/customer/" + id)
+      .uri("http://basket:9002/api/customer/" + id)
       .retrieve()
       .bodyToMono(BasketData.class);
   }
@@ -36,7 +36,7 @@ public class BasketApiServiceImpl implements BasketApiService {
   public Mono<BasketData> update(BasketData currentBasket) {
     return basketWebClient.build()
       .post()
-      .uri("http://basket/api/")
+      .uri("http://basket:9002/api/")
       .contentType(MediaType.APPLICATION_JSON)
       .bodyValue(currentBasket)
       .retrieve()

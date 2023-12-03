@@ -237,16 +237,16 @@ services:
       # Buildpacks environment variable to enable debug through a socket on port 8000
       - BPL_DEBUG_ENABLED=true
       - BPL_DEBUG_PORT=8000
-      - ANALYTICS_SERVICE_URL=http://analytics
-      - BASKET_SERVICE_URL=http://basket
-      - CATALOG_COMMAND_SERVICE_URL=http://catalog-command
-      - CATALOG_QUERY_SERVICE_URL=http://catalog-query
-      - FLUX_GATEWAY_SERVICE_URL=http://flux-gateway
-      - GRAPHQL_GATEWAY_SERVICE_URL=http://graphql-gateway
-      - IMAGE_GATEWAY_SERVICE_URL=http://image-gateway
-      - ORDER_NOTIFICATIONS_SERVICE_URL=http://order-notifications
-      - ORDER_PROCESSING_SERVICE_URL=http://order-processing
-      - RATING_SERVICE_URL=http://rating
+      - ANALYTICS_SERVICE_URL=http://analytics:9001
+      - BASKET_SERVICE_URL=http://basket:9002
+      - CATALOG_COMMAND_SERVICE_URL=http://catalog-command:9003
+      - CATALOG_QUERY_SERVICE_URL=http://catalog-query:9004
+      - FLUX_GATEWAY_SERVICE_URL=http://flux-gateway:9005
+      - GRAPHQL_GATEWAY_SERVICE_URL=http://graphql-gateway:9006
+      - IMAGE_GATEWAY_SERVICE_URL=http://image-gateway:9007
+      - ORDER_NOTIFICATIONS_SERVICE_URL=http://order-notifications:9009
+      - ORDER_PROCESSING_SERVICE_URL=http://order-processing:9010
+      - RATING_SERVICE_URL=http://rating:9012
       - SPRING_REDIS_HOST=gateway-redis
       - SPRING_REDIS_PORT=6380
       - SPRING_KEYCLOAK_SERVER_URL=http://eshop-keycloak:8080

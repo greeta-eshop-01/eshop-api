@@ -41,7 +41,7 @@ public class OrderingApiServiceImpl implements OrderingApiService {
 
     return orderWebClient.build()
         .post()
-        .uri("http://order-processing/api/draft")
+        .uri("http://order-processing:9010/api/draft")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(request)
         .retrieve()

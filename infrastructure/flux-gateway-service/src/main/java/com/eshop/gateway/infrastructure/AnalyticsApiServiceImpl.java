@@ -25,7 +25,7 @@ public class AnalyticsApiServiceImpl implements AnalyticsApiService {
   public Flux<CatalogItem> getTopFiveProducts(String accessToken) {
     return analyticsWebClient.build()
         .get()
-        .uri("http://analytics/api/products/top-five")
+        .uri("http://analytics:9001/api/products/top-five")
         .headers(h -> {
           h.setBearerAuth(accessToken);
           //TODO: implement distributed tracing

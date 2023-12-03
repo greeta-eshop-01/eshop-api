@@ -19,12 +19,12 @@ public class CategoryApiServiceImpl implements CategoryApiService {
   @Override
   public Optional<CategoryDto> findById(UUID id) {
     return Optional.ofNullable(
-      catalogRestTemplate.getForObject("http://catalog-query/api/categories/%s".formatted(id), CategoryDto.class));
+      catalogRestTemplate.getForObject("http://catalog-query:9004/api/categories/%s".formatted(id), CategoryDto.class));
   }
 
   @Override
   public List<CategoryDto> findAll() {
-    var response = catalogRestTemplate.getForEntity("http://catalog-query/api/categories", CategoryDto[].class);
+    var response = catalogRestTemplate.getForEntity("http://catalog-query:9004/api/categories", CategoryDto[].class);
     return Arrays.asList(response.getBody());
   }
 }

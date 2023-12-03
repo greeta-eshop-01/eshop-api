@@ -21,13 +21,13 @@ public class BasketApiServiceImpl implements BasketApiService {
   @Override
   public Optional<BasketDto> findByUserId(String userId) {
     return Optional.ofNullable(
-      basketRestTemplate.getForObject("http://basket/api/customer/" + userId, BasketDto.class));
+      basketRestTemplate.getForObject("http://basket:9002/api/customer/" + userId, BasketDto.class));
   }
 
   @Override
   public Optional<BasketDto> findById(UUID id) {
     return Optional.ofNullable(
-      basketRestTemplate.getForObject("http://basket/api/" + id, BasketDto.class));
+      basketRestTemplate.getForObject("http://basket:9002/api/" + id, BasketDto.class));
   }
 
   @Override
@@ -38,7 +38,7 @@ public class BasketApiServiceImpl implements BasketApiService {
 
   @Override
   public Optional<BasketDto> update(BasketDto basket) {
-    final var response = basketRestTemplate.postForEntity("http://basket/api/", basket, BasketDto.class);
+    final var response = basketRestTemplate.postForEntity("http://basket:9002/api/", basket, BasketDto.class);
     return Optional.ofNullable(response.getBody());
   }
 
@@ -48,6 +48,6 @@ public class BasketApiServiceImpl implements BasketApiService {
     headers.set("x-requestid", UUID.randomUUID().toString());
     HttpEntity<BasketCheckoutDto> request = new HttpEntity<>(basketCheckout, headers);
 
-    basketRestTemplate.postForEntity("http://basket/api/checkout", request, Void.class);
+    basketRestTemplate.postForEntity("http://basket:9002/api/checkout", request, Void.class);
   }
 }

@@ -22,7 +22,7 @@ public class RatingApiServiceImpl implements RatingApiService {
   public List<RatingDto> findByIds(Set<UUID> ids) {
     var commaSeparatedIds = ids.stream().map(String::valueOf).collect(Collectors.joining(","));
     var response = ratingsRestTemplate.getForEntity(
-      "http://rating/api/withids/" + commaSeparatedIds,
+      "http://rating:9012/api/withids/" + commaSeparatedIds,
       RatingDto[].class
     );
     return Arrays.asList(response.getBody());
@@ -31,7 +31,7 @@ public class RatingApiServiceImpl implements RatingApiService {
   @Override
   public RatingDto addRating(AddRatingDto rating) {
     final var response = ratingsRestTemplate.postForEntity(
-      "http://rating/api/%s".formatted(rating.catalogItemId()),
+      "http://rating:9012/api/%s".formatted(rating.catalogItemId()),
       rating,
       RatingDto.class
     );

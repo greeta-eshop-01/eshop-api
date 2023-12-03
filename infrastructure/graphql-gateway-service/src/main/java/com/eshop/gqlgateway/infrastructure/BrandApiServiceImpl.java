@@ -19,12 +19,12 @@ public class BrandApiServiceImpl implements BrandApiService {
   @Override
   public Optional<BrandDto> findById(UUID id) {
     return Optional.ofNullable(
-      catalogRestTemplate.getForObject("http://catalog-query/api/brands/%s".formatted(id), BrandDto.class));
+      catalogRestTemplate.getForObject("http://catalog-query:9004/api/brands/%s".formatted(id), BrandDto.class));
   }
 
   @Override
   public List<BrandDto> findAll() {
-    var response = catalogRestTemplate.getForEntity("http://catalog-query/api/brands", BrandDto[].class);
+    var response = catalogRestTemplate.getForEntity("http://catalog-query:9004/api/brands", BrandDto[].class);
     return Arrays.asList(response.getBody());
   }
 }

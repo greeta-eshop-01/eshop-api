@@ -28,7 +28,7 @@ public class CatalogApiServiceImpl implements CatalogApiService {
   public Mono<CatalogItem> getCatalogItem(UUID id) {
     return catalogWebClient.build()
         .get()
-        .uri("http://catalog-query/api/items/" + id)
+        .uri("http://catalog-query:9004/api/items/" + id)
         .retrieve()
         .bodyToMono(CatalogItem.class);
   }
@@ -38,7 +38,7 @@ public class CatalogApiServiceImpl implements CatalogApiService {
     var commaSeparatedIds = ids.stream().map(String::valueOf).collect(Collectors.joining(","));
     return catalogWebClient.build()
         .get()
-        .uri("http://catalog-query/api/items/withids/" + commaSeparatedIds)
+        .uri("http://catalog-query:9004/api/items/withids/" + commaSeparatedIds)
         .retrieve()
         .bodyToFlux(CatalogItem.class);
   }
@@ -47,7 +47,7 @@ public class CatalogApiServiceImpl implements CatalogApiService {
   public Flux<CatalogItem> getFirst5CatalogItems() {
     return catalogWebClient.build()
         .get()
-        .uri("http://catalog-query/api/items?pageIndex=0&pageSize=5")
+        .uri("http://catalog-query:9004/api/items?pageIndex=0&pageSize=5")
         .retrieve()
         .bodyToMono(First5CatalogItemsResponse.class)
         .flatMapIterable(First5CatalogItemsResponse::content);

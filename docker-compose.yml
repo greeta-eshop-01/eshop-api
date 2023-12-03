@@ -49,7 +49,7 @@ services:
     depends_on:
       - keycloak-postgres
     healthcheck:
-      test: "curl -f http://book-keycloak:8080/health/ready || exit 1"
+      test: "curl -f http://eshop-keycloak:8080/health/ready || exit 1"
     networks:
       - eshop
 
