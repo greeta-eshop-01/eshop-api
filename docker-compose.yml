@@ -149,10 +149,10 @@ services:
       MINIO_SECRET_KEY: mystorage
       MINIO_REGION: eu-east
     ports:
-      - "8086:9000"
+      - "8086:8087"
     volumes:
       - ./minio:/data
-    command: server /data
+    command: server --address ":8086" --console-address ":8087" /data
     networks:
       - eshop
 
@@ -162,7 +162,7 @@ services:
       - minio
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc config host add myminio http://minio:9000 mystorage mystorage;
+      /usr/bin/mc config host add myminio http://minio:8086 mystorage mystorage;
       /usr/bin/mc rm -r --force myminio/catalog-images;
       /usr/bin/mc mb myminio/catalog-images;
       /usr/bin/mc policy download myminio/catalog-images;
@@ -182,13 +182,14 @@ services:
       IMGPROXY_ALLOW_ORIGIN: '*'
       #      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /opt # you can link Minio volume to imgproxy and use as a local filesystem.
       IMGPROXY_USE_S3: 'true'
-      IMGPROXY_S3_ENDPOINT: http://minio:9000
+      IMGPROXY_S3_ENDPOINT: http://minio:8086
       AWS_ACCESS_KEY_ID: mystorage
       AWS_SECRET_ACCESS_KEY: mystorage
       AWS_REGION: eu-east
+      SERVER_PORT: 8887
     links:
       - minio
     ports:
-      - "8887:8080"
+      - "8887:8887"
     networks:
       - eshop
