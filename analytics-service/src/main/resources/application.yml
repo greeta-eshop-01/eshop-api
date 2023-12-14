@@ -49,22 +49,22 @@ spring:
           issuer-uri: ${spring.keycloak.server-external-url}/realms/eshop-realm
           jwk-set-uri: ${spring.keycloak.server-url}/realms/eshop-realm/protocol/openid-connect/certs
 
-  cloud.stream:
-    kafka.streams:
-      binder.functions:
-        ordercheckouts:
-          applicationId: analytics-order-checkout
-        orderstatistics:
-          applicationId: analytics-order-statistics
-        allsubmittedorders:
-          applicationId: analytics-all-submitted-orders-statistics
-        allpaidorders:
-          applicationId: analytics-paid-orders-statistics
-        payments:
-          applicationId: analytics-payments-statistics
-
+  cloud:
     function:
       definition: ordercheckouts;orderstatistics;allsubmittedorders;allpaidorders;payments
+    stream:
+      kafka.streams:
+        binder.functions:
+          ordercheckouts:
+            applicationId: analytics-order-checkout
+          orderstatistics:
+            applicationId: analytics-order-statistics
+          allsubmittedorders:
+            applicationId: analytics-all-submitted-orders-statistics
+          allpaidorders:
+            applicationId: analytics-paid-orders-statistics
+          payments:
+            applicationId: analytics-payments-statistics
 
     bindings:
       ordercheckouts-in-0:
@@ -95,30 +95,30 @@ spring:
         destination: ${spring.kafka.consumer.topic.paymentStatus}
         binder: defaultKafka
 
-    binders:
-      defaultKafka:
-        type: kstream
-        environment:
-          spring.cloud.stream.kafka.streams:
-            binder:
-              brokers: ${app.kafka.broker.host}:${app.kafka.broker.port}
-              configuration:
-                application.server: ${app.host}:${server.port}
-                default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                commit.interval.ms: 1000
+      binders:
+        defaultKafka:
+          type: kstream
+          environment:
+            spring.cloud.stream.kafka.streams:
+              binder:
+                brokers: ${app.kafka.broker.host}:${app.kafka.broker.port}
+                configuration:
+                  application.server: ${app.host}:${server.port}
+                  default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  commit.interval.ms: 1000
 
-      defaultKafkaTable:
-        type: ktable
-        environment:
-          spring.cloud.stream.kafka.streams:
-            binder:
-              brokers: ${app.kafka.broker.host}:${app.kafka.broker.port}
-              configuration:
-                application.server: ${app.host}:${server.port}
-                default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                commit.interval.ms: 1000
+        defaultKafkaTable:
+          type: ktable
+          environment:
+            spring.cloud.stream.kafka.streams:
+              binder:
+                brokers: ${app.kafka.broker.host}:${app.kafka.broker.port}
+                configuration:
+                  application.server: ${app.host}:${server.port}
+                  default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  commit.interval.ms: 1000
 
 logging:
   pattern:
@@ -176,6 +176,7 @@ openapi:
     realm: eshop-realm
 
 app:
+  host: analytics
   kafka:
     broker:
       host: kafka

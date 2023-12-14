@@ -12,7 +12,7 @@ cd ../basket-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=basket-service
 
-cd ./catalog/catalog-command-service
+cd ../catalog/catalog-command-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=catalog-command-service
 
@@ -52,7 +52,7 @@ cd ../rating-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=rating-service
 
-cd ../../gateway-service
+cd ../gateway-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=gateway-service
 

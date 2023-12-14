@@ -39,7 +39,7 @@
         <axon-version>4.9.0</axon-version>
         <axon-kafka-version>4.9.0</axon-kafka-version>
         <axon-mongo-version>4.9.0</axon-mongo-version>
-        <kafka-clients-version>3.3.1</kafka-clients-version>
+        <kafka-clients-version>3.4.1</kafka-clients-version>
         <minio-version>8.4.5</minio-version>
         <okhttp-version>4.10.0</okhttp-version>
         <junit5-version>5.8.2</junit5-version>
