@@ -11,7 +11,7 @@ public class JwtHelper {
         if (properties.getPrincipalAttribute() != null) {
             claimName = properties.getPrincipalAttribute();
         }
-        return jwt.getClaim(claimName);
+        return jwt == null ? null : jwt.getClaim(claimName);
     }
 }
 

@@ -25,7 +25,6 @@ public class RemoveQuantityMutation {
   private final ToBasketConverter toBasketConverter;
 
   @SuppressWarnings("unused")
-  @Secured("ROLE_user")
   @DgsMutation
   public BasketRemoveQuantityPayload removeQuantity(@InputArgument BasketRemoveQuantityInput input) {
     final var basketId = fromString(input.getBasketId()).id();

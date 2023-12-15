@@ -66,34 +66,34 @@ spring:
           payments:
             applicationId: analytics-payments-statistics
 
-    bindings:
-      ordercheckouts-in-0:
-        destination: ${spring.kafka.consumer.topic.orderCheckouts}
-        binder: defaultKafka
-      orderstatistics-in-0:
-        destination: ${spring.kafka.consumer.topic.submittedOrders}
-        binder: defaultKafka
-      orderstatistics-in-1:
-        destination: ${spring.kafka.consumer.topic.cancelledOrders}
-        binder: defaultKafka
-      allsubmittedorders-in-0:
-        destination: ${spring.kafka.consumer.topic.submittedOrders}
-        binder: defaultKafka
-      allsubmittedorders-out-0:
-        destination: allsubmittedorders
-        binder: defaultKafka
-      allpaidorders-in-0:
-        destination: ${spring.kafka.consumer.topic.paidOrders}
-        binder: defaultKafka
-      allpaidorders-in-1:
-        destination: allsubmittedorders
-        binder: defaultKafkaTable
-      allpaidorders-out-0:
-        destination: allpaidorders
-        binder: defaultKafka
-      payments-in-0:
-        destination: ${spring.kafka.consumer.topic.paymentStatus}
-        binder: defaultKafka
+      bindings:
+        ordercheckouts-in-0:
+          destination: ${spring.kafka.consumer.topic.orderCheckouts}
+          binder: defaultKafka
+        orderstatistics-in-0:
+          destination: ${spring.kafka.consumer.topic.submittedOrders}
+          binder: defaultKafka
+        orderstatistics-in-1:
+          destination: ${spring.kafka.consumer.topic.cancelledOrders}
+          binder: defaultKafka
+        allsubmittedorders-in-0:
+          destination: ${spring.kafka.consumer.topic.submittedOrders}
+          binder: defaultKafka
+        allsubmittedorders-out-0:
+          destination: allsubmittedorders
+          binder: defaultKafka
+        allpaidorders-in-0:
+          destination: ${spring.kafka.consumer.topic.paidOrders}
+          binder: defaultKafka
+        allpaidorders-in-1:
+          destination: allsubmittedorders
+          binder: defaultKafkaTable
+        allpaidorders-out-0:
+          destination: allpaidorders
+          binder: defaultKafka
+        payments-in-0:
+          destination: ${spring.kafka.consumer.topic.paymentStatus}
+          binder: defaultKafka
 
       binders:
         defaultKafka:

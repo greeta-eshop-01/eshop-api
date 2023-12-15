@@ -19,7 +19,6 @@ public class CheckoutMutation {
   private final BasketApiService basketApiService;
 
   @SuppressWarnings("unused")
-  @Secured("ROLE_user")
   @DgsMutation
   public BasketCheckoutPayload checkout(DataFetchingEnvironment dfe, @InputArgument BasketCheckoutInput input) {
     EshopContext context = DgsContext.getCustomContext(dfe);

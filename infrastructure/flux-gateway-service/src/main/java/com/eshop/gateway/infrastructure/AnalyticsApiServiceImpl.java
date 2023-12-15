@@ -27,9 +27,11 @@ public class AnalyticsApiServiceImpl implements AnalyticsApiService {
         .get()
         .uri("http://analytics:9001/api/products/top-five")
         .headers(h -> {
-          h.setBearerAuth(accessToken);
-          //TODO: implement distributed tracing
-          //h.set(CORRELATION_ID_HEADER, MDC.get(CORRELATION_ID_KEY));
+          if (accessToken != null) {
+            h.setBearerAuth(accessToken);
+            //TODO: implement distributed tracing
+            //h.set(CORRELATION_ID_HEADER, MDC.get(CORRELATION_ID_KEY));
+          }
         })
         .retrieve()
         .bodyToFlux(Product.class)

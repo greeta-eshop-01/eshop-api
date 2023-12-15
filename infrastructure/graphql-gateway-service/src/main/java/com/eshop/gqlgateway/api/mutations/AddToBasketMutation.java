@@ -28,7 +28,6 @@ public class AddToBasketMutation {
   private final ToBasketConverter toBasketConverter;
 
   @SuppressWarnings("unused")
-  @Secured("ROLE_user")
   @DgsMutation
   public AddToBasketPayload addToBasket(@InputArgument AddToBasketInput input) {
     final var basketId = fromString(input.getBasketId()).id();

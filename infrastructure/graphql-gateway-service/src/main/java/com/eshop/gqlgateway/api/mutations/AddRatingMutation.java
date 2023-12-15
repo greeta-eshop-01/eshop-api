@@ -18,7 +18,6 @@ import static com.eshop.gqlgateway.api.util.IdUtils.fromString;
 public class AddRatingMutation {
   private final RatingApiService ratingApiService;
 
-  @Secured("ROLE_user")
   @DgsMutation
   public AddRatingPayload addRating(@InputArgument AddRatingInput input) {
     final var productId = fromString(input.getProductId()).id();

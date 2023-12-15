@@ -10,7 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfig {
 
     private final JwtAuthConverter jwtAuthConverter;
@@ -25,7 +24,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/graphql", "/graphql/**").permitAll()
                         .requestMatchers("/graphiql", "/graphiql/**").permitAll()
 
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(
                         jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter)))
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
