@@ -16,7 +16,6 @@ import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import graphql.execution.DataFetcherResult;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 
 import static com.eshop.gqlgateway.api.util.IdUtils.fromString;
 

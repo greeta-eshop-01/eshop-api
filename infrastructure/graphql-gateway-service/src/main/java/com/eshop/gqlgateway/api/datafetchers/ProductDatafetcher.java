@@ -50,8 +50,8 @@ public class ProductDatafetcher {
     @InputArgument Integer page,
     @InputArgument Integer pageSize,
     @InputArgument String query,
-    @InputArgument ProductSort productSort,
-    @InputArgument ProductFilter productFilter,
+    @InputArgument ProductSort sort,
+    @InputArgument ProductFilter filter,
     @InputArgument Boolean reverse
   ) {
     return catalogApiService.findAll(page, pageSize)

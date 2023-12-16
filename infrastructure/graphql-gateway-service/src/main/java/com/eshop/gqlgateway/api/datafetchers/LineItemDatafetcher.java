@@ -16,7 +16,6 @@ import graphql.execution.DataFetcherResult;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.dataloader.DataLoader;
-import org.springframework.security.access.annotation.Secured;
 
 import java.util.Map;
 import java.util.UUID;

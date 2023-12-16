@@ -14,7 +14,6 @@ import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import graphql.execution.DataFetcherResult;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +48,7 @@ public class OrderDatafetcher {
   @DgsQuery
   public List<DataFetcherResult<Order>> orders(
     @InputArgument Boolean reverse,
-    @InputArgument OrderSort orderSort
+    @InputArgument OrderSort sort
   ) {
     return orderApiService.allOrders().stream()
       .map(orderService::orderResultFrom)
