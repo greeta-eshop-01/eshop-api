@@ -52,19 +52,12 @@ spring:
           issuer-uri: ${spring.keycloak.server-external-url}/realms/eshop-realm
           jwk-set-uri: ${spring.keycloak.server-url}/realms/eshop-realm/protocol/openid-connect/certs
 
-
-
   # Redis
-  redis:
-    password: ${app.redis.password}
-    host: ${app.redis.host}
-    port: ${app.redis.port}
-
-  cloud:
-    bus:
-      enabled: true
-      refresh:
-        enabled: true
+  data:
+    redis:
+      password: ${app.redis.password}
+      host: ${app.redis.host}
+      port: ${app.redis.port}
 
 logging:
   pattern:
