@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>net.greeta.eshop</groupId>
-        <artifactId>catalog</artifactId>
+        <artifactId>eshop-parent</artifactId>
         <version>1.1</version>
     </parent>
 
-    <artifactId>catalog-query-service</artifactId>
-    <name>catalog-query-service</name>
+    <artifactId>catalog-command-service</artifactId>
+    <name>catalog-command-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -84,14 +84,16 @@
             <version>${springdoc.version}</version>
         </dependency>
 
-
-        <!-- Spring Boot Starters -->
+        <!-- Other Dependencies -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+      </dependency>
 
-        <!-- Axon Framework and Extensions -->
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
@@ -104,19 +106,9 @@
             <groupId>org.axonframework.extensions.mongo</groupId>
             <artifactId>axon-mongo</artifactId>
         </dependency>
-
-        <!-- Other Dependencies -->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -125,17 +117,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-
-        <!-- Runtime-Only Dependency -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
     </dependencies>

@@ -174,13 +174,10 @@ services:
   imgproxy:
     image: darthsim/imgproxy:v3.6
     restart: always
-    # Mount a volume as local image source
-    #    volumes:
-    #      - ./images:/opt # link to minio volume to imgproxy's /opt folder for local filesystem.
 
     environment:
       IMGPROXY_ALLOW_ORIGIN: '*'
-      #      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /opt # you can link Minio volume to imgproxy and use as a local filesystem.
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /opt # you can link Minio volume to imgproxy and use as a local filesystem.
       IMGPROXY_USE_S3: 'true'
       IMGPROXY_S3_ENDPOINT: http://minio:8086
       AWS_ACCESS_KEY_ID: mystorage
@@ -190,6 +187,8 @@ services:
     links:
       - minio
     ports:
-      - "8887:8887"
+      - "8887:8080"
+    volumes:
+      - "./minio:/opt" # link to minio volume to imgproxy's /opt folder for local filesystem.
     networks:
       - eshop

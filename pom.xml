@@ -45,15 +45,19 @@
 
     <modules>
         <module>shared</module>
-        <module>infrastructure</module>
         <module>analytics-service</module>
         <module>basket-service</module>
-        <module>catalog</module>
+        <module>catalog-shared</module>
+        <module>catalog-command-service</module>
+        <module>catalog-query-service</module>
         <module>order-grace-period-task-service</module>
         <module>order-notifications-service</module>
         <module>order-processing-service</module>
         <module>payment-service</module>
         <module>rating-service</module>
+        <module>flux-gateway-service</module>
+        <module>graphql-gateway-service</module>
+        <module>image-gateway-service</module>
         <module>gateway-service</module>
     </modules>
 

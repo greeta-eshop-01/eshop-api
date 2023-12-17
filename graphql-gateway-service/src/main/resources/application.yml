@@ -95,6 +95,6 @@ dgs:
         enabled: true
     schema-locations:
       - classpath*:schema/**/*.graphql*
-    path: /graphql-gateway/graphqls
+    path: /graphql-gateway/graphql
     apq:
       enabled: true

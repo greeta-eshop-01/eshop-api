@@ -195,11 +195,11 @@ jwt:
       principal-attribute: preferred_username
 
 eshop-angular-app:
-  base-url: http://localhost:3000
+  base-url: http://localhost:4200
   redirect-url: ${eshop-angular-app.base-url}/*
 
 eshop-react-app:
-  base-url: http://localhost:3001
+  base-url: http://localhost:4201
   redirect-url: ${eshop-react-app.base-url}/*
 
 resilience4j:

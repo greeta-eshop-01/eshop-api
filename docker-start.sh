@@ -12,27 +12,27 @@ cd ../basket-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=basket-service
 
-cd ../catalog/catalog-command-service
+cd ../catalog-command-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=catalog-command-service
 
-cd ../../catalog/catalog-query-service
+cd ../catalog-query-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=catalog-query-service
 
-cd ../../infrastructure/flux-gateway-service
+cd ../flux-gateway-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=flux-gateway-service
 
-cd ../../infrastructure/graphql-gateway-service
+cd ../graphql-gateway-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=graphql-gateway-service
 
-cd ../../infrastructure/image-gateway-service
+cd ../image-gateway-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=image-gateway-service
 
-cd ../../order-grace-period-task-service
+cd ../order-grace-period-task-service
 mvn spring-boot:build-image -DskipTests \
   -Dspring-boot.build-image.imageName=order-grace-period-task-service
 
