@@ -1,4 +1,4 @@
-package com.eshop.gqlgateway.security;
+package com.eshop.signaler.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,13 +20,9 @@ public class WebSecurityConfig {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
 
-                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/endpoint", "/endpoint/**").permitAll()
 
-                        .requestMatchers("/graphql", "/graphql/**").permitAll()
-                        .requestMatchers("/graphiql", "/graphiql/**").permitAll()
-                        .requestMatchers("/", "/**").permitAll()
-
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(
                         jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter)))
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

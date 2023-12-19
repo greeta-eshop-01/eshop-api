@@ -36,7 +36,7 @@ public class BasketApiServiceImpl implements BasketApiService {
   public Mono<BasketData> update(BasketData currentBasket) {
     return basketWebClient.build()
       .post()
-      .uri("http://basket:9002/api/")
+      .uri("http://basket:9002/api")
       .contentType(MediaType.APPLICATION_JSON)
       .bodyValue(currentBasket)
       .retrieve()

@@ -28,9 +28,9 @@ public class WebSecurityConfig {
         .pathMatchers(HttpMethod.GET, "/api/v1/catalog/**").permitAll()
         .pathMatchers(HttpMethod.GET, "/api/v1/rating/**").permitAll()
         .pathMatchers("/api/v1/rating/**").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
-        .pathMatchers("/api/v1/basket/*").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
-        .pathMatchers("/api/v1/orders/*").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
-        .pathMatchers("/api/v1/catalog/*").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
+        .pathMatchers("/api/v1/basket/**").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
+        .pathMatchers("/api/v1/orders/**").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
+        .pathMatchers("/api/v1/catalog/**").hasAnyRole(ESHOP_MANAGER, ESHOP_USER)
 
         .anyExchange().authenticated())
       .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(

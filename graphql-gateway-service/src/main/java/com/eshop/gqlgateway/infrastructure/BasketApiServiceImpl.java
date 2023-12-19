@@ -38,7 +38,7 @@ public class BasketApiServiceImpl implements BasketApiService {
 
   @Override
   public Optional<BasketDto> update(BasketDto basket) {
-    final var response = basketRestTemplate.postForEntity("http://basket:9002/api/", basket, BasketDto.class);
+    final var response = basketRestTemplate.postForEntity("http://basket:9002/api", basket, BasketDto.class);
     return Optional.ofNullable(response.getBody());
   }
 

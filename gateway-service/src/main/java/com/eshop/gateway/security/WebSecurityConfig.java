@@ -49,15 +49,13 @@ public class WebSecurityConfig {
                         .pathMatchers("/flux-gateway/api/v1/orders", "/flux-gateway/api/v1/orders/**").permitAll()
                         .pathMatchers("/flux-gateway/api/v1/rating", "/flux-gateway/api/v1/rating/**").permitAll()
 
-
-                        .pathMatchers(HttpMethod.GET,"/graphql-gateway/v3/api-docs/**").permitAll()
                         .pathMatchers("/graphql-gateway/graphql", "/graphql-gateway/graphql/**").permitAll()
                         .pathMatchers("/graphql-gateway/graphiql", "/graphql-gateway/graphiql/**").permitAll()
+                        .pathMatchers("/graphql-gateway", "/graphql-gateway/**").permitAll()
 
                         .pathMatchers(HttpMethod.GET,"/image-gateway/v3/api-docs/**").permitAll()
                         .pathMatchers("/image-gateway", "/image-gateway/**").permitAll()
 
-                        .pathMatchers(HttpMethod.GET,"/order-notifications/v3/api-docs/**").permitAll()
                         .pathMatchers("/order-notifications/endpoint", "/order-notifications/endpoint/**").permitAll()
 
                         .pathMatchers(HttpMethod.GET,"/order-processing/v3/api-docs/**").permitAll()

@@ -277,8 +277,6 @@ springdoc:
         name: GraphQL Gateway Service
       - url: /image-gateway/v3/api-docs
         name: Image Gateway Service
-      - url: /order-notifications/v3/api-docs
-        name: Order Notifications Service
       - url: /order-processing/v3/api-docs
         name: Order Processing Service
       - url: /rating/v3/api-docs

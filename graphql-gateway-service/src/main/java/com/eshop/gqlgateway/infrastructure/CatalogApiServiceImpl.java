@@ -42,7 +42,7 @@ public class CatalogApiServiceImpl implements CatalogApiService {
   }
 
   private String uriFor(String path) {
-    return "http://%s/catalog/items%s".formatted(apiServices.getCatalogQuery(), path);
+    return "http://%s/api/items%s".formatted(apiServices.getCatalogQuery(), path);
   }
 
 }

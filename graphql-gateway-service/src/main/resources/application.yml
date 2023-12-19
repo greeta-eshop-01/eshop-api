@@ -78,12 +78,12 @@ openapi:
 
 app:
   services:
-    catalog-query: catalog-query
-    catalog-command: catalog-command
-    basket: basket
-    order-processing: order-processing
-    analytics: analytics
-    rating: rating
+    catalog-query: catalog-query:9004
+    catalog-command: catalog-command:9003
+    basket: basket:9002
+    order-processing: order-processing:9010
+    analytics: analytics:9001
+    rating: rating:9012
 
 dgs:
   graphql:
@@ -95,6 +95,6 @@ dgs:
         enabled: true
     schema-locations:
       - classpath*:schema/**/*.graphql*
-    path: /graphql-gateway/graphql
+    path: /graphql
     apq:
       enabled: true
