@@ -15,6 +15,7 @@
         <module>event-handling</module>
         <module>outbox</module>
         <module>rest</module>
+        <module>security</module>
         <module>validation</module>
     </modules>
 
